@@ -1,8 +1,4 @@
-# From https://github.com/Microsoft/azure-pipelines-yaml/tree/master/templates
-
-# Docker image and Azure container registry
-# Build a Docker image and push to a container registry
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+# This container is deployed to http://configlesswebapp.azurewebsites.net
 
 resources:
 - repo: self
@@ -23,7 +19,8 @@ variables:
 
   # Update ACR.Name value with ACR name. Please note ACR names should be all lower-case and alphanumeric only.
   ACR.Name: 'configlessdocker'
-  
+
+  # http://configlesswebapp.azurewebsites.net
   AzureWebApp.Name: 'configlessWebApp'
   
   # ========================================================================
