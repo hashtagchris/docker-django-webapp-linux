@@ -107,4 +107,4 @@ jobs:
       connectedServiceNameARM: '$(Azure.ServiceConnectionId)'
       scriptLocation: inlineScript
       inlineScript: |
-        az webapp config container set --resource-group $(Azure.ResourceGroupName) --name $(AzureWebApp.Name) --docker-custom-image-name $(ACR.ImageName) --docker-registry-server-url https://$(ACR.FullName) --docker-registry-server-user $(ACR.Name) --docker-registry-server-password $(ACR.Password)
+        az webapp config container set --resource-group $(Azure.ResourceGroupName) --name $(AzureWebApp.Name) --docker-custom-image-name $(ACR.FullName)/$(ACR.ImageName) --docker-registry-server-url https://$(ACR.FullName) --docker-registry-server-user $(ACR.Name) --docker-registry-server-password $(ACR.Password)
