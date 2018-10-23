@@ -24,6 +24,8 @@ variables:
   # Update ACR.Name value with ACR name. Please note ACR names should be all lower-case and alphanumeric only.
   ACR.Name: 'configlessdocker'
   
+  AzureWebApp.Name: 'configlessWebApp'
+  
   # ========================================================================
   #                           Optional variables 
   # ========================================================================
@@ -36,9 +38,9 @@ variables:
   Azure.CreateResources: 'true' # Update Azure.CreateResources to false if you have already created resources like resource group and azure container registry.
   System.Debug: 'false'
 
-phases:
+jobs:
 
-- phase: CreateResources
+- job: CreateResources
   displayName: Create resources
   condition: and(succeeded(), eq(variables['Azure.CreateResources'], 'true'))
 
@@ -68,7 +70,7 @@ phases:
           echo "$CREATED_ACR"
         fi
 
-- phase: BuildImage
+- job: BuildImage
   displayName: Build
   dependsOn: CreateResources
   condition: or(succeeded(), ne(variables['Azure.CreateResources'], 'true'))
@@ -93,3 +95,13 @@ phases:
       azureContainerRegistry: '$(ACR.FullName)'
       imageName: '$(ACR.ImageName)'
       command: push
+
+- job: Deploy Azure WebApp
+  steps:
+  - task: AzureCLI@1
+    displayName: 'Create resources if required'
+    inputs:
+      connectedServiceNameARM: '$(Azure.ServiceConnectionId)'
+      scriptLocation: inlineScript
+      inlineScript: |
+        az webapp config container set --resource-group $(Azure.ResourceGroupName) --name $(AzureWebApp.Name) --docker-custom-image-name $(ACR.ImageName) --docker-registry-server-url https://$(ACR.FullName) --docker-registry-server-user $(ACR.Name) --docker-registry-server-password $(ACR.Password)
