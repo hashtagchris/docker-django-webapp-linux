@@ -102,7 +102,7 @@ jobs:
   condition: succeeded()
   steps:
   - task: AzureCLI@1
-    displayName: 'Create resources if required'
+    displayName: 'Update the webapp container properties'
     inputs:
       connectedServiceNameARM: '$(Azure.ServiceConnectionId)'
       scriptLocation: inlineScript
