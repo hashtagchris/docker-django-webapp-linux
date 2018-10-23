@@ -96,7 +96,7 @@ jobs:
       imageName: '$(ACR.ImageName)'
       command: push
 
-- job: Deploy Azure WebApp
+- job: DeployAzureWebApp
   steps:
   - task: AzureCLI@1
     displayName: 'Create resources if required'
