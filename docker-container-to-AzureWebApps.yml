@@ -93,6 +93,7 @@ jobs:
       imageName: '$(ACR.ImageName)'
       command: push
 
+# We could also let Azure Web Apps monitor the container registry and initiate deploy. See https://docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-ci-cd
 - job: Deploy
   displayName: Deploy Azure WebApp
   dependsOn: BuildImage
