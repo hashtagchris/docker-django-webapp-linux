@@ -44,8 +44,8 @@ jobs:
   displayName: Create resources
   condition: and(succeeded(), eq(variables['Azure.CreateResources'], 'true'))
 
-  queue:
-    name: Hosted Ubuntu 1604
+  pool:
+    vmImage: 'Ubuntu-16.04'
 
   steps:
   - task: AzureCLI@1
@@ -75,8 +75,8 @@ jobs:
   dependsOn: CreateResources
   condition: or(succeeded(), ne(variables['Azure.CreateResources'], 'true'))
 
-  queue:
-    name: Hosted Ubuntu 1604
+  pool:
+    vmImage: 'Ubuntu-16.04'
 
   steps:
   - task: Docker@1
