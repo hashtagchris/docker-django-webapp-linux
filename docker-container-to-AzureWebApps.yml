@@ -31,7 +31,7 @@ variables:
   # ========================================================================
 
   ACR.RepositoryName: '$(ACR.Name)'
-  ACR.ImageName: '$(ACR.Name):$(Build.BuildId)'
+  ACR.ImageName: 'configlesswebapp:$(Build.BuildId)'
   ACR.FullName: '$(ACR.Name).azurecr.io'
   ACR.Sku: 'Standard'
   Docker.File: 'Dockerfile'
